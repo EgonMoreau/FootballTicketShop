@@ -1,0 +1,20 @@
+﻿@model webproject1920.ViewModels.CartTicketInfoVM
+
+@{
+    var matchName = $"{Model.MSLVM.Match.TeamHomeNavigation.Name} - {Model.MSLVM.Match.TeamAwayNavigation.Name}";
+}
+
+<td>@matchName (@Model.MSLVM.StadiumLocation.Location.Location)</td>
+<td>
+    <form class="form-inline d-inline" asp-action="Cart" method="post">
+        <input type="hidden" name="MatchTicket" value="@Model.MSLVM.Id" />
+        <input type="hidden" name="ForMatchId" value="@Model.MSLVM.Match.Id" />
+        <input type="number" name="Count" min="1" max="@Model.MSLVM.RemainingSeats" value="@Model.Count" />
+        <button class="btn btn-primary" type="submit">V</button>
+    </form>
+    <form class="form-inline d-inline" asp-action="RemoveCart" method="post">
+        <input type="hidden" name="MatchTicket" value="@Model.MSLVM.Id" />
+        <button class="btn btn-danger" type="submit">X</button>
+    </form>
+</td>
+<td>€ @(Model.MSLVM.Price * Model.Count)</td>

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<webproject1920.ViewModels.TeamVM>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="jumbotron jumbotron-fluid jumbotronRemPadding jumbotron-rem-margin">
+    <div class="team-banner d-flex flex-column justify-content-center align-items-center px-1 py-5">
+        <h1 class="text-white">Teams</h1>
+    </div>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th colspan="2">
+                Team
+            </th>
+            <th>
+                Thuisstadion
+            </th>
+            <th>
+                Details
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="table-row-teams">
+                    <img src="@item.Logo" class="logo-thumbnail" />
+                </td>
+                <td class="table-row-teams">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="table-row-teams">
+                    @Html.DisplayFor(modelItem => item.Stadium.Name)
+                </td>
+                <td class="table-row-teams">
+                    @Html.ActionLink("Details", "Detail", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

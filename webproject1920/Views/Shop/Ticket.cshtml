@@ -1,0 +1,64 @@
+﻿@model webproject1920.ViewModels.ShopTicketInfoVM
+
+@{
+    ViewData["Title"] = "Ticket";
+
+    var matchName = $"{Model.Match.TeamHome.Name} - {Model.Match.TeamAway.Name}";
+}
+
+<div class="p-2">
+    <h1>Ticket: @matchName</h1>
+    <div>
+        <hr />
+        <div class="p-1">
+            <h4><i class="fas fa-clock"></i> @Model.Match.Start</h4>
+            <h4><i class="fas fa-map-marker-alt"></i> @Model.Stadium.Name.ToString()</h4>
+        </div>
+        <hr />
+        <div class="row m-0">
+            <div class="col-8">
+                <h5>Informatie</h5>
+                @if (Model.SelectedMSL != null)
+                {
+                    <p>Resterende plaatsen: @Model.SelectedMSL.RemainingSeats</p>
+                    <p>Plaats: @Model.SelectedMSL.StadiumLocation.Location.Location</p>
+                    <p>Prijs: €@Model.SelectedMSL.Price</p>
+
+                    <form asp-controller="Shop" asp-action="Cart" method="POST">
+                        <input type="hidden" name="MatchTicket" value="@Model.SelectedMSL.Id" />
+                        <input type="hidden" name="ForMatchId" value="@Model.Match.Id" />
+                        <button class="btn btn-primary" type="submit">Kopen</button>
+                    </form>
+                }
+                else
+                {
+                    <p>Selecteer eerst plaats</p>
+                }
+            </div>
+            <div class="col-4">
+                <h5>Selecteer plaats</h5>
+                <div class="input-group">
+                    <form id="form-location" asp-controller="Shop" asp-action="Ticket" asp-route-matchId="@Model.Match.Id">
+                        <select class="custom-select" id="select-location" name="mslId">
+                            <option selected>Selecteer een plaats...</option>
+                            @foreach (var location in Model.MSLs)
+                            {
+                                @if (location.RemainingSeats > 0) {
+                                    <!option value="@location.Id" @(Model.SelectedMSL?.Id == location.Id ? "selected": "")>@location.StadiumLocation.Location.Location</!option>
+                                }
+                            }
+                        </select>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $("#select-location").change(() => {
+            $("#form-location").submit();
+        });
+    </script>
+}

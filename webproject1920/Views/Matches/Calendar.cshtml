@@ -1,0 +1,62 @@
+﻿@model webproject1920.ViewModels.MatchCalendarVM
+@{
+    ViewData["Title"] = "Calendar";
+}
+
+<div class="jumbotron jumbotron-fluid jumbotronRemPadding jumbotron-rem-margin">
+    <div class="calender-banner d-flex flex-column justify-content-center align-items-center px-1 py-5">
+        <h1 class="text-white">Wedstrijden</h1>
+        @if (Model.Team != null)
+        {
+            <h3 class="text-white">@Model.Team.Name</h3>
+        }
+    </div>
+</div>
+
+@section Links {
+    <link rel="stylesheet" href="~/lib/fullcalendar/core/main.css" />
+    @*<link rel="stylesheet" href="~/lib/fullcalendar/daygrid/main.css" />*@
+    <link rel="stylesheet" href="~/lib/fullcalendar/list/main.css" />
+}
+
+<div id="matchcalendar">
+</div>
+
+@section Scripts {
+    <script src="~/lib/fullcalendar/core/main.js"></script>
+    <script src="~/lib/fullcalendar/list/main.js"></script>
+    <script src='"~/lib/fullcalendar/core/locales-all.js'></script>
+    <script>
+        const teamId = '@Model.TeamId';
+        document.addEventListener("DOMContentLoaded", function() {
+        var calendarEl = document.getElementById("matchcalendar");
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+            timeZone: 'UTC',
+            plugins: ["list"],
+            contentHeight: 'auto',
+            defaultView: "listSeason",
+             locale: 'nl',
+            events: {
+                url: "/Matches/CalendarData",
+                method: "POST",
+                extraParams: {
+                    teamId
+                }
+            },
+            views: {
+                listSeason: {
+                    type: 'list',
+                    duration: { year: 1 },
+                    buttonText: '3m'
+                }
+            },
+            eventClick(info) {
+                location.href = `/Matches/Details/${info.event.id}`;
+                }
+        });
+
+            calendar.render();
+        });
+    </script>
+}

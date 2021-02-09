@@ -1,0 +1,65 @@
+﻿@model webproject1920.ViewModels.ShopSubscriptionVM
+
+@{
+    ViewData["Title"] = "SubscriptionAsync";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="p-3">
+    <h1>Abonnement: @Model.Team.Name</h1>
+    <div>
+        <hr />
+        <div class="p-1">
+            <h4><i class="fas fa-clock"></i> @Model.Competition.Season</h4>
+            <h4><i class="fas fa-map-marker-alt"></i> @Model.Team.Stadium.Name</h4>
+        </div>
+        <hr />
+        <div class="row m-0">
+            <div class="col-8">
+                <h5>Informatie</h5>
+                @if (Model.SelectedTcl != null)
+                {
+                    <p>Plaats: @Model.SelectedTcl.Location.Location</p>
+                    <p>Prijs: €@Model.SelectedTcl.Price</p>
+
+
+                    <form asp-controller="Shop" asp-action="Cart" method="POST">
+                        <input type="hidden" name="TeamSubscription" value="@Model.SelectedTcl.Id"/>
+                        <input type="hidden" name="ForTeamId" value="@Model.Team.Id"/>
+                        <button class="btn btn-primary" type="submit">Kopen</button>
+                    </form>
+                }
+                else
+                {
+                    <p>Selecteer eerst plaats</p>
+                }
+            </div>
+            <div class="col-4">
+                <h5>Selecteer plaats</h5>
+                <div class="input-group">
+                    <form id="form-location" asp-controller="Shop" asp-action="Subscription" asp-route-teamid="@Model.Team.Id" >
+                        <select class="custom-select" id="select-location" name="tclId">
+                            @if (Model.SelectedTcl == null)
+                            {
+                                <option selected>Selecteer een plaats...</option>
+                            }
+                            @foreach (var location in Model.Tcl)
+                            {
+
+                                <!option value="@location.Id" @(Model.SelectedTcl?.Id == location.Id ? "selected" : "")>@location.Location.Location</!option>
+                            }
+                        </select>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $("#select-location").change(() => {
+            $("#form-location").submit();
+        });
+    </script>
+}

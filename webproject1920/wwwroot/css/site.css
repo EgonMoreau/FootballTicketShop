@@ -1,0 +1,153 @@
+﻿/*Scroll bar*/
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    height: 100vh;
+    overflow: hidden;
+    background-image: url('../images/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.footer {
+    width: 100%;
+    white-space: nowrap;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+/* custom*/
+
+.container.wrapper {
+    overflow: auto;
+    padding: 0;
+}
+
+.team-banner {
+    background-image: url('../images/Team-header.png');
+}
+.calender-banner {
+    background-image: url('../images/calendar-header.png');
+}
+
+.stadion-banner {
+    background-image: url('../images/stadion-header.png');
+}
+
+.logo-thumbnail {
+    display: block;
+    height: 48px;
+    width: auto;
+    margin: auto;
+}
+
+.team-carousel-item img {
+    margin: auto;
+    display: block;
+    width: auto;
+    height: 200px;
+}
+
+.team-carousel-item {
+    padding-bottom: 32px;
+}
+
+.topheader {
+    background-image: url('../images/header.jpg');
+}
+
+.teamNameAddres {
+    display: inline;
+    margin: 0 auto;
+}
+
+.table-row-teams {
+    vertical-align: middle !important;
+}
+
+.match-detail-logo {
+    height: 300px;
+    max-height: 300px;
+}
+
+.jumbo-match-detail {
+    background-color: white;
+}
+
+.jumbotron-rem-margin {
+    margin-bottom: 1rem !important;
+    text-align: center;
+    padding: 0 !important;
+}
+
+.vertical-center {
+    min-height: 100%; /* Fallback for browsers do NOT support vh unit */
+    min-height: 300px; /* These two lines are counted as one :-)       */
+    display: flex;
+    align-items: center;
+}
+
+.fc-list-item {
+    cursor: pointer;
+}
+
+#matchcalendar .fc-toolbar {
+    padding-left: 12px;
+    padding-right: 12px;
+}

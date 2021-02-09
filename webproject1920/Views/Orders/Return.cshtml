@@ -1,0 +1,25 @@
+﻿@model webproject1920.Domain.Entities.OrderLineVM
+
+@{
+    ViewData["Title"] = "Return";
+}
+
+<div class="p-3">
+    <h1>Return</h1>
+    <hr />
+    @if (ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-success">Ticket werd succesvol geretourneerd!</div>
+        <a asp-action="Index">Terug naar orders</a>
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            @Html.ValidationMessage("Return")
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

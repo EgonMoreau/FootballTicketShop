@@ -1,0 +1,27 @@
+﻿@model IEnumerable<webproject1920.ViewModels.TeamVM>
+
+@{
+    int teamIndex = 0;
+    int count = Model.Count();
+}
+
+<div id="carouselTeams" class="carousel slide bg-light" data-ride="carousel">
+    <ol class="carousel-indicators">
+        @for (int i = 0; i < count; i++)
+        {
+            <li data-target="#carouselTeams" data-slide-to="@i" class="@(teamIndex==0 ? "active" : "")"></li>
+        }
+    </ol>
+
+    <div class="carousel-inner">
+        @foreach (var team in Model)
+        {
+            <div class="carousel-item team-carousel-item @(teamIndex == 0 ? "active" : "")">
+                <a asp-controller="Matches" asp-action="Index" asp-route-teamId="@team.Id">
+                    <img src="@team.Image" class="img-fluid w-100" style="height:auto;" />
+                </a>
+            </div>
+            teamIndex++;
+        }
+    </div>
+</div>

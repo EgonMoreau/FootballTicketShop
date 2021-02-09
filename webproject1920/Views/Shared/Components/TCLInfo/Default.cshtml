@@ -1,0 +1,14 @@
+﻿@model webproject1920.ViewModels.TCLVM
+
+@{
+    string item = $"{Model.Team.Name} - {Model.Competition.Season}";
+        
+}
+
+<td><span><img src="@Model.Team.Logo" height="24px" />@item</span></td>
+<td>
+<form class="form-inline d-inline" asp-action="RemoveCart" method="post">
+    <input type="hidden" name="TeamSubscription" value="@Model.Id" />
+    <button class="btn btn-danger" type="submit">X</button>
+</form>
+<td>€ @Model.Price</td>

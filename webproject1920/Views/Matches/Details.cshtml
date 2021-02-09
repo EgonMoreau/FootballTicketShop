@@ -1,0 +1,43 @@
+﻿@model webproject1920.ViewModels.MatchInfo
+@{
+    ViewData["Title"] = "MatchDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="jumbotron jumbo-match-detail">
+    <div class="row m-0">
+        <div class="col-md-5 h-100">
+            <img src="@Model.Match.TeamHome.Logo" class="img-fluid mx-auto match-detail-logo d-block" />
+            <p class="text-center font-weight-bold">@Model.Match.TeamHome.Name</p>
+        </div>
+        <div class="col-md-2 d-flex justify-content-center h-100 vertical-center">
+            <i class="fas fa-times vs-icon "></i>
+        </div>
+        <div class="col-md-5 h-100">
+            <img src="@Model.Match.TeamAway.Logo" class="img-fluid mx-auto match-detail-logo d-block" />
+            <p class="text-center font-weight-bold">@Model.Match.TeamAway.Name</p>
+        </div>
+    </div>
+</div>
+<div class="text-center">
+    <h1>@Model.Match.Stadium.Name</h1>
+    <h4>Starting at @Model.Match.Start</h4>
+    @if (DateTime.Now >= Model.Match.Start)
+    {
+        <p>Match afgelopen of gestart!</p>
+    }
+    else if (DateTime.Now.AddMonths(1) < Model.Match.Start.Date) {
+        <p>Tickets beschikbaar 1 maand voor start!</p>
+    }
+    else
+    {
+        <a asp-controller="Shop" asp-action="Ticket" asp-route-matchId="@Model.Match.Id" class="btn btn-success">Koop een ticket voor deze match!</a>
+    }
+</div>
+
+@section Scripts {
+    <script>
+
+    </script>
+}

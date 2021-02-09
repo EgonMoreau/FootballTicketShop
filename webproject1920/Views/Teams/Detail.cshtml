@@ -1,0 +1,26 @@
+﻿@model webproject1920.ViewModels.TeamVM
+
+@{
+    ViewData["Title"] = "Detail";
+}
+<div class="jumbotron jumbotron-fluid p-0">
+    <div class="team-banner d-flex flex-column justify-content-center align-items-center px-1 py-5" style=" background-image: url(@Model.Image)">
+        <h1 class="text-white">Team</h1>
+        <h3 class="text-white">@Model.Name</h3>
+    </div>
+</div>
+<div class="p-3">
+    <div class="row m-0 text-center">
+        <div class="col-12 col-md-6 mt-3">
+            <h1 align="center">@Html.ViewData.Model.Name</h1>
+            <img alt="Logo van een team" src="@Html.ViewData.Model.Logo" width="200" style="text-align: center; margin: auto; display: block" />
+        </div>
+        <div class="col-12 col-md-6 mt-3">
+            <h3 class="m-0">Thuisstadion</h3>
+            <h2>@Model.Stadium.Name</h2>
+
+            <a asp-controller="Matches" asp-action="Index" asp-route-teamId="@Model.Id" type="button" class="btn btn-primary mr-3 mt-5">Ga naar kalender</a>
+            <a asp-controller="Shop" asp-action="Subscription" asp-route-teamId="@Model.Id" type="button" class="btn btn-success mt-5">Koop een abonnement</a>
+        </div>
+    </div>
+</div>

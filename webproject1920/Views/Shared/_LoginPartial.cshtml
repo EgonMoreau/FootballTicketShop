@@ -1,0 +1,36 @@
+@using Microsoft.AspNetCore.Identity
+@using webproject1920.Areas.Identity.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" title="Manage" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+                @User.Claims.FirstOrDefault(c => c.Type == "ContactName")?.Value
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Accountinstellingen</a>
+                <a class="dropdown-item" asp-controller="Orders" asp-action="Index">Mijn bestellingen</a>
+                <form id="form-logout" class="" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <a class="dropdown-item" onclick="$('#form-logout').submit()">Uitloggen</a>
+                </form>
+            </div>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Shop" asp-action="Cart">
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+        </li>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Registreren</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Log in</a>
+        </li>
+    }
+</ul>

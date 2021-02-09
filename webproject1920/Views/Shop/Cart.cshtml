@@ -1,0 +1,61 @@
+﻿@model webproject1920.ViewModels.ShoppingCartVM
+
+@{
+    ViewData["Title"] = "Index";
+
+    bool hasCartError = ViewData.ModelState["Cart"] != null && ViewData.ModelState["Cart"].Errors.Any();
+}
+
+<div class="p-3">
+    <h1>Shopping Cart</h1>
+
+    @if (hasCartError)
+    {
+        <div class="alert alert-warning" role="alert">@Html.ValidationMessage("Cart")</div>
+    }
+
+    @if(Model.Cart != null && Model.Cart.Count > 0) 
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Item</th>
+                    <th scope="col">Atl.</th>
+                    <th scope="col">Prijs</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Cart)
+                {
+                    <tr>
+                        <td>@(Model.Cart.IndexOf(item)+1)</td>
+                        @if (item.MatchTicket.HasValue)
+                        {
+                            @await Component.InvokeAsync("MSLInfo", new { cartItem = item })
+                        }
+                        else if (item.TeamSubscription.HasValue)
+                        {
+                            @await Component.InvokeAsync("TCLInfo", new { cartItem = item })
+                        }
+                        else
+                        {
+                            <td>N.v.t.</td>
+                        }
+                    </tr>
+
+                }
+                <tr class="font-weight-bold"><td colspan="3" class="text-right">Totaal:</td><td>€@Model.TotalPrice</td></tr>
+            </tbody>
+        </table>
+        <form asp-action="Confirm">
+            <button type="submit" class="btn btn-primary">Bestellen</button>
+        </form>
+    }
+    else
+    {
+        <h2>Winkelkarretje is leeg</h2>
+    }
+</div>
+<div>
+</div>

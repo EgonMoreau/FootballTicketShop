@@ -1,0 +1,58 @@
+﻿@model IEnumerable<webproject1920.Domain.Entities.OrderLineVM>
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="p-3">
+    <h1>Bestelling: @ViewData["OrderId"]</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Item
+                </th>
+                <th>
+                    Prijs
+                </th>
+                <th>
+                    Retourneren
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (item.SubscriptionId.HasValue)
+                        {
+                            <p>@item.Subscription.TeamCompetitionLocation.Team.Name (@item.Subscription.TeamCompetitionLocation.Location.Location)</p>
+                            <p>@item.Subscription.TeamCompetitionLocation.Competition.Season</p>
+                        }
+                        else if (item.TicketId.HasValue)
+                        {
+                            <p>@item.Ticket.Match.TeamHomeNavigation.Name - @item.Ticket.Match.TeamAwayNavigation.Name (@item.Ticket.MatchStadiumLocation.Location.Location) </p>
+                            <p>@Html.DisplayFor(modelItem => item.Ticket.Match.Start)</p>
+                        }
+                    </td>
+                    <td>
+                        € @item.Price
+                    </td>
+                    <td>
+                        @if (item.TicketId.HasValue && DateTime.Now.AddDays(7) < item.Ticket.Match.Start)
+                        {
+                            <form method="post" asp-action="Return" asp-route-id="@item.Id">
+                                <button type="submit" class="btn btn-warning">Retourneren</button>
+                            </form>
+                        } else
+                        {
+                            <p>N.v.t.</p>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

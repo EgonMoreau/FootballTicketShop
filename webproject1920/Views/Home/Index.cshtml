@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="m-0">
+    @await Component.InvokeAsync("MatchCarousel")
+    @await Component.InvokeAsync("TeamsCarousel")
+    <div class="d-flex justify-content-around m-5">
+        <h4><a asp-controller="Matches" asp-action="Index">Wedstrijden</a></h4>
+        <h4><a asp-controller="Stadiums" asp-action="Index">Stadions</a></h4>
+        <h4><a asp-controller="Teams" asp-action="Index">Teams</a></h4>
+    </div>
+</div>
